@@ -11,7 +11,8 @@ jobs:
               run: go mod download
 
             - name: Run unit tests
-              run: GOOS=linux GOARCH=amd64 go test
+              run: |
+                go test github.com/Elmar006/api-backend/handlers
 
             - name: Vet
               run: |
