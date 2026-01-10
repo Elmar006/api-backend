@@ -12,7 +12,7 @@ jobs:
 
             - name: Run unit tests
               run: |
-                go test github.com/Elmar006/api-backend/handlers
+                go test github.com/Elmar006/api-backend/internal/handlers
 
             - name: Vet
               run: |
