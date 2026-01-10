@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Elmar006/api-backend/database"
-	"github.com/Elmar006/api-backend/handlers"
+	"github.com/Elmar006/api-backend/internal/database"
+	"github.com/Elmar006/api-backend/internal/handlers"
 	"github.com/go-chi/chi/v5"
 )
 

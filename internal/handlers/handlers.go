@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Elmar006/api-backend/database"
-	"github.com/Elmar006/api-backend/models"
+	"github.com/Elmar006/api-backend/internal/database"
+	"github.com/Elmar006/api-backend/internal/models"
 	"github.com/go-chi/chi/v5"
 )
 

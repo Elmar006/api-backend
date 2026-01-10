@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Elmar006/api-backend/database"
+	"github.com/Elmar006/api-backend/internal/database"
 	"github.com/go-chi/chi/v5"
 )
 
