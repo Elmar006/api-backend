@@ -14,6 +14,43 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+func GetCurrentUser(w http.ResponseWriter, r *http.Request) {
+	userID, err := auth.GetUserId(r.Context())
+	if err != nil {
+		http.Error(w, "Unauthorized: "+err.Error(), http.StatusUnauthorized)
+		return
+	}
+
+	var user models.User
+	if err := database.DB.Db.First(&user, userID).Error; err != nil {
+		http.Error(w, "User not found: "+err.Error(), http.StatusNotFound)
+		return
+	}
+
+	response := map[string]interface{}{
+		"id":         user.ID,
+		"email":      user.Email,
+		"role":       user.Role,
+		"created_at": user.CreatedAt,
+		"updated_at": user.UpdatedAt,
+	}
+
+	var taskCount int64
+	database.DB.Db.Model(&models.Task{}).
+		Where("user_id = ?", userID).
+		Count(&taskCount)
+
+	response["task_count"] = taskCount
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
+}
+
 func GetTasks(w http.ResponseWriter, r *http.Request) {
 	userID, err := auth.GetUserId(r.Context())
 	if err != nil {

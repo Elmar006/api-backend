@@ -13,7 +13,7 @@ import (
 
 var TokenAuth *jwtauth.JWTAuth
 
-func initJWWT() {
+func InitJWT() {
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
 		secret = "dev-secret-change-in-production-12345"

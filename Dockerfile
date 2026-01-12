@@ -1,3 +1,4 @@
+# Stage 1: Builder
 FROM golang:1.25-alpine AS builder
 
 RUN apk add --no-cache ca-certificates git
@@ -14,7 +15,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
     -trimpath \
     -ldflags "-s -w -extldflags '-static'" \
     -o /app/todo \
-    ./cmd/api
+    ./cmd/main.go 
 
 FROM alpine:3.21
 
@@ -34,6 +35,5 @@ USER appuser
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=4s --start-period=10s --retries=4 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/tasks || exit 1
-
+    CMD wget --no-verbose --tries=1 --spider http://localhost:3000/me || exit 1  
 CMD ["./todo"]
