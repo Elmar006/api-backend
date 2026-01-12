@@ -16,7 +16,7 @@ var TokenAuth *jwtauth.JWTAuth
 func InitJWT() {
 	secret := os.Getenv("JWT_SECRET")
 	if secret == "" {
-		secret = "dev-secret-change-in-production-12345"
+		secret = "secret-key-jwt-by-elmar006"
 	}
 
 	TokenAuth = jwtauth.New("HS256", []byte(secret), nil)
